@@ -46,23 +46,32 @@ Subject: ${subject}
       to: email,
       subject: 'Thank you for droping a Mail to Us!',
       html: `
-        <div style="font-family: Arial, sans-serif; color: #333;">
-          <img src="https://indocsmedia.onrender.com/assets/images/logo-1.jfif" alt="indocs media" style="width:150px; margin-bottom:20px;" />
-          <h2>Hello ${name},</h2>
-          <p>Thank you for reaching out to us! We have received your request: ${subject}, and we'll do our best to process it as soon as possible.</p>
-          <p>If something is urgent then please contact us on - <a href="mailto:indocsmedia@gmail.com">indocsmedia@gmail.com</a></p>
+       <div style="font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; width: 600px; margin: auto;">
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img src="https://indocsmedia.onrender.com/assets/images/logo-1.jfif" alt="Indocs Media" style="width: 150px; border-radius: 8px;" />
+  </div>
 
-          <h3>Your Email Details:</h3>
-          <p>
-            <strong>Email:</strong> ${email} <br/>
-            <strong>Phone:</strong> ${phone} <br/>
-            <strong>Message:</strong> ${message}
-          </p>
-          <p></p>
+  <h2 style="color: #0c52a2;">Hello ${name},</h2>
+  <p style="font-size: 16px; line-height: 1.6;">Thank you for reaching out to us! We have received your request regarding <strong>${subject}</strong>. Our team will get back to you as soon as possible.</p>
 
-          <br/>
-          <p>Best Regards,<br/><strong>Indocs Media Team</strong></p>
-        </div>
+  <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
+    <h3 style="color: #0c52a2; margin-bottom: 10px;">Your Mail Details:</h3>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Message:</strong> ${message}</p>
+  </div>
+
+  <p style="font-size: 14px; line-height: 1.6;">If your request is urgent, feel free to contact us at <a href="mailto:indocsmedia@gmail.com" style="color: #0c52a2; text-decoration: none;">indocsmedia@gmail.com</a>.</p>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="mailto:indocsmedia@gmail.com" style="background-color: #0c52a2; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Contact Us</a>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px;">
+    <p style="font-size: 12px; color: #777;">Best Regards,<br/><strong>Indocs Media Team</strong></p>
+  </div>
+</div>
+
       `,
     };
 
