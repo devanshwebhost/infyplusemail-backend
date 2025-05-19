@@ -5,13 +5,17 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://infyplus.com', // Update this with your frontend URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
 
 const PORT = process.env.PORT || 5000;
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
-    auth: {
+  auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
@@ -23,6 +27,8 @@ app.post('/sendApplication', async (req, res) => {
   if (!name || !email || !position || !message) {
     return res.status(400).json({ error: 'Required fields are missing' });
   }
+
+  console.log("Received Attachment:", attachment);
 
   try {
     const mailToCompany = {
@@ -39,7 +45,7 @@ Message: ${message}
       attachments: [],
     };
 
-    if (attachment) {
+    if (attachment && attachment.filename && attachment.content) {
       mailToCompany.attachments.push({
         filename: attachment.filename,
         content: attachment.content,
@@ -82,8 +88,6 @@ Message: ${message}
   }
 });
 
-// app.listen(PORT, () => {
-//   console.log(Server running on port ${PORT});
 try {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
@@ -91,5 +95,3 @@ try {
 } catch (err) {
   console.error("Error starting server:", err);
 }
-
-// })
