@@ -28,11 +28,6 @@ app.post('/sendApplication', async (req, res) => {
     return res.status(400).json({ error: 'Required fields are missing' });
   }
 
-  // Validate attachment size (e.g., 5MB after base64 decoding)
-  if (attachment && attachment.content && Buffer.from(attachment.content, 'base64').length > 5 * 1024 * 1024) {
-    return res.status(400).json({ error: 'Attachment size exceeds 5MB limit' });
-  }
-
   console.log("Received Attachment:", attachment);
 
   try {
@@ -53,7 +48,7 @@ Message: ${message}
     if (attachment && attachment.filename && attachment.content) {
       mailToCompany.attachments.push({
         filename: attachment.filename,
-        content: Buffer.from(attachment.content, 'base64'),
+        content: attachment.content,
         encoding: 'base64',
       });
     }
@@ -69,6 +64,11 @@ Message: ${message}
           </div>
           <h2>Hello ${name},</h2>
           <p>Thank you for reaching out to us regarding the <strong>${position}</strong> position. We have successfully received your application and our team will review it within the next 24-48 hours.</p>
+          <h3>Your Application Details:</h3>
+          <p><strong>Job Position:</strong> ${position}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Message:</strong> ${message}</p>
           <p>If your qualifications align with our requirements, we will contact you for further steps. Meanwhile, if you have any urgent inquiries, feel free to reach us at <a href="mailto:infyplusconsulting@gmail.com">infyplusconsulting@gmail.com</a>.</p>
           <p>Thank you for considering InfyPlus Consulting as your next career move!</p>
           <p style="text-align: center;">Best Regards,<br/>InfyPlus Consulting Team</p>
@@ -84,6 +84,14 @@ Message: ${message}
     res.json({ message: 'Application and confirmation email sent successfully!' });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({ error: `Failed to send emails: ${error.message}` });
+    res.status(500).json({ error: 'Failed to send emails' });
   }
 });
+
+try {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+} catch (err) {
+  console.error("Error starting server:", err);
+}
