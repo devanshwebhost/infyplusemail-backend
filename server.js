@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: 'https://infyplus.com', // Keep for testing
+  origin: '*', // Keep for testing
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
 }));
@@ -28,9 +28,8 @@ app.post('/sendApplication', async (req, res) => {
     return res.status(400).json({ error: 'Required fields: name, email, position, message' });
   }
 
-  // Log request for debugging
-  console.log('Received form data:', { name, position, email, phone, message });
-  console.log('Attachment:', attachment ? attachment.filename : 'No attachment');
+  // Log for debugging
+  console.log('Received:', { name, position, email, phone, message, attachment: attachment ? attachment.filename : 'No attachment' });
 
   // Validate attachment size (2MB decoded)
   if (attachment && attachment.content) {
